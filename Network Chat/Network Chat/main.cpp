@@ -16,16 +16,16 @@
 void runNetwork(Network* network) {
 	printf("entering thread 3\n");
 
-	while (true) 
+	while (true)
 		network->listen();
 
 	printf("exiting thread 3\n");
 }
 
-void chatFunc(Network* network,std::string ip) {
+void chatFunc(Network* network, std::string ip) {
 	while (true) {
 		std::string temp = "";
-		std::getline(std::cin,temp);
+		std::getline(std::cin, temp);
 		if (temp == "exit")
 			break;
 		if (temp == "clear")
@@ -36,15 +36,20 @@ void chatFunc(Network* network,std::string ip) {
 
 int main()
 {
-	printf("enter ip to connect to\n");
-	std::string temp = "";
-	std::getline(std::cin, temp);
+	Network* network = new Network(5400, "192.168.0.100", true);
 
-	Network *network = new Network(5400, "192.168.0.100",true);
+	std::string temp = "192.168.0.100";
+	if (!network->isHosting()) {
+		printf("enter ip to connect to\n");
+		std::getline(std::cin, temp);
+
+
+		network->sendMessage("connected", temp);
+	}
 	//construction "ignites" the thread, calls the callback that you put in
 	//you can put in function parameters if the callback requires paramters (eg. chatThread(chatFunc,name,id))
-	std::thread chatThread(chatFunc,network,temp);
-	std::thread networkThread(runNetwork,network);
+	std::thread chatThread(chatFunc, network, temp);
+	std::thread networkThread(runNetwork, network);
 
 	//detach lets THIS thread continue without being blocked by the networkThread
 	networkThread.detach();

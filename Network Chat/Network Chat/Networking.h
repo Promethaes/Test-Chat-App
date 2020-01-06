@@ -20,6 +20,7 @@ public:
 	void listen();
 	std::string listen(bool returnString);
 
+	bool isHosting() const { return _isHosting; }
 private:
 	bool _isHosting = false;
 	std::vector<std::string> connectedIPs;
