@@ -29,6 +29,7 @@ Network::Network(unsigned port, const std::string& IP, bool isHosting)
 	if (!winSocketInitialized)
 		return;
 	this->port = port;
+	thisIp = IP;
 
 	serverHint.sin_addr.S_un.S_addr = ADDR_ANY;
 	serverHint.sin_family = AF_INET;
@@ -90,8 +91,10 @@ void Network::listen()
 		}
 	}
 
+	std::string temp = clientIp;
 
-	std::cout << clientIp << " : " << buf << "\n";
+	if (temp != thisIp)
+		std::cout << clientIp << " : " << buf << "\n";
 	//	sendMessage("Message Recieved ", clientIp);
 }
 

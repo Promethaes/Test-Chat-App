@@ -24,6 +24,7 @@ public:
 private:
 	bool _isHosting = false;
 	std::vector<std::string> connectedIPs;
+	std::string thisIp = "";
 	int port;
 	SOCKET in = socket(AF_INET, SOCK_DGRAM, 0);
 	SOCKET out = socket(AF_INET, SOCK_DGRAM, 0);
