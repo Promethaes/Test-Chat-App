@@ -36,7 +36,7 @@ void chatFunc(Network* network, std::string ip) {
 
 int main()
 {
-	Network* network = new Network(5400, "192.168.0.100", true);
+	Network* network = new Network(5400, "192.168.0.102", false);
 
 	std::string temp = "192.168.0.100";
 	if (!network->isHosting()) {
